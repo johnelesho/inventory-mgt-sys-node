@@ -1,0 +1,202 @@
+<%- include('header') %>
+    <!-- partial:partials/_navbar -->
+    
+    <%- include('navbar') %>
+    
+    
+    
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <!-- partial:partials/_sidebar -->
+      <% if(role=="Admin") { %>
+        <%- include('Admin_sidebar') %>
+        <% } else { %>
+          <%- include('sidebar') %>
+          <% } %>
+            <!-- partial -->
+       <!-- partial -->
+       <div class="main-panel">        
+        <div class="content-wrapper">
+          <div class="row">
+            <div class="col-md-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">View Product Detail</h4>
+                  <p class="card-description">
+                    <% if(message.length > 0) { %>
+                      <%= message %>
+          <% } %></h6>
+                  </p>
+                  <form class="forms" method="POST" >
+                    
+                    <div class="form-group row">
+                      <div class="col-md-6 row"> 
+                      <label for="productId"  class="col-sm-3 col-form-label">Product Id:</label>
+                      <div class="col-sm-9">
+                        <input type="text" maxlength="10" name="prodId" class="form-control" id="productId" placeholder="Product Id"  value="<% if(productDetails !== null) { %>
+                          <%= productDetails.ProductId %>
+              <% } %>   "  >
+                      </div>
+                      </div>
+                      <div class="col-md-6 row"> 
+                        
+                        <div class="col-sm-12">
+                            <input type="submit" formaction="edit_product"  id="btnViewProduct" class="col-sm-5  btn btn-sm btn-primary mr-2" value= "View Product Details">   </div>
+                        </div>
+                      <div class="col-md-6 row"> 
+                        <label for="date"  class="col-sm-3 col-form-label">Date:</label>
+                        <div class="col-sm-9">
+                          <input name="date" class="col-sm-12 form-control" id="date" placeholder="Date of Registration"
+                           value="<% if(productDetails !== null) { %>
+                                <%= productDetails.Date %>
+                    <% } %> "   /> 
+                        
+                        </div>
+                        </div>
+                        <div class="col-md-6 row"> 
+                          <label for="productName" class="col-sm-3 col-form-label">Product Name</label>
+                          <div class="col-sm-9">
+                            <input name="prodName" class="col-sm-8 form-control" id="productName" placeholder="Name of Product" value="<% if(productDetails !== null) { %>
+                                    <%= productDetails.ProductName %>
+                        <% } %>   ">
+                              
+                          </div>
+                          </div>
+                          <div class="col-md-6 row"> 
+                            <label for="supplierId" class="col-sm-3 col-form-label">Supplier Id:</label>
+                            <div class="col-sm-9">
+                                           <input name="supId" class="col-sm-3 form-control" id="supplierId" value="
+                                            <% if(productDetails !== null) { %>
+                                                <%= productDetails.SupplierId %>
+                                    <% } %> "/>
+                               
+                            </div>
+
+                            </div>
+                          <div class="col-md-6 row">
+                            <label for="costPrice" class="col-sm-3 col-form-label">Cost Price</label>
+                            <div class="col-sm-9">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                      <div class="input-group-prepend">
+                                        <span class="input-group-text bg-primary text-white">$</span>
+                                      </div>
+                                      <input name="costPrice"  id="costPrice" class="col-sm-3 form-control" aria-label="Amount (to the nearest dollar)"
+                                        value="<% if(productDetails !== null) { %>
+                                            <%= productDetails.ProductCostPrice %>
+                                <% } %>   "> 
+                                          
+                                      <div class="input-group-append">
+                                        <span class="input-group-text">.00</span>
+                                      </div>
+                                    </div>
+                                  </div>
+                          </div>
+                          </div>
+                          
+                          <div class="col-md-6 row">
+                            <label for="sellingPrice" class="col-sm-3 col-form-label">Selling Price</label>
+                            <div class="col-sm-9">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                      <div class="input-group-prepend">
+                                        <span class="input-group-text bg-primary text-white">$</span>
+                                      </div>
+                                      <input name="sellingPrice" id="sellingPrice" class="col-sm-3 form-control" aria-label="Amount (to the nearest dollar)"
+                                       value=" <% if(productDetails !== null) { %>
+                                            <%= productDetails.ProductSellingPrice %>
+                                <% } %>  ">  
+                                         
+                                      <div class="input-group-append">
+                                        <span class="input-group-text">.00</span>
+                                      </div>
+                                    </div>
+                                  </div>
+                          </div>
+                          </div>
+                          <div class="col-md-6 row">
+                            <label for="initialQty" class="col-sm-3 col-form-label">Current Quantity</label>
+                            <div class="col-sm-9">
+                                <div class="form-group">
+                                    <div class="input-group">
+                     <input name="initialQty" id="initialQty" class="col-sm-3 form-control" aria-label="Quantity"
+                                       value="<% if(productDetails !== null) { %>
+                                            <%= productDetails.CurrentQuantity %>
+                                <% } %>">    
+                                        
+                                      <div class="input-group-append">
+                                        <span class="input-group-text">.00</span>
+                                      </div>
+                                    </div>
+                                  </div>
+                          </div>
+                          </div>
+                          <div class="col-md-6 row">
+                            <label for="minimumQty" class="col-sm-3 col-form-label">Min. Quantity</label>
+                            <div class="col-sm-9">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                     
+                                      <input name="minimumQty" id="minimumQty" class="col-sm-3 form-control" aria-label="Quantity"
+                                        value="<% if(productDetails !== null) { %>
+                                            <%= productDetails.MinimumRequired %>
+                                <% } %> ">   
+                                          
+                                      <div class="input-group-append">
+                                        <span class="input-group-text">.00</span>
+                                      </div>
+                                    </div>
+                                  </div>
+                          </div>
+                          </div>
+
+                     <div class="col-md-6 row">
+                            <label for="productCategory" class="col-sm-3 col-form-label">Product Category</label>
+                            <div class="col-sm-9">
+                                <div class="form-group">
+                              <input class="col-sm-3 form-control" name="productCategory" id="productCategory"
+                               value="<% if(productDetails !== null) { %>
+                                    <%= productDetails.productCategory %>
+                        <% } %>   "  >
+                             
+                                  </div>
+                          </div>
+                          </div>
+                 
+                    </div>
+                  
+                    <button formaction="edit-product" type="submit" class="btn btn-primary mr-2">Submit</button>
+                    <button class="btn btn-light">Cancel</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+       <!-- content-wrapper ends -->
+        <!-- partial:partials/_footer -->
+        <%- include('footer') %>
+        <!-- partial -->
+      </div>
+      <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
+  <!-- plugins:js -->
+  <script src="vendors/base/vendor.bundle.base.js"></script>
+  <!-- endinject -->
+  <!-- Plugin js for this page-->
+  <!-- End plugin js for this page-->
+  <!-- inject:js -->
+  <script src="js/off-canvas.js"></script>
+  <script src="js/hoverable-collapse.js"></script>
+  <script src="js/template.js"></script>
+  <script src="js/product.js"></script>
+  <!-- endinject -->
+  <!-- Custom js for this page-->
+  <!-- End custom js for this page-->
+</body>
+
+<html>

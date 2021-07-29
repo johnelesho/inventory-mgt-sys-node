@@ -1,0 +1,113 @@
+<%- include('header') %>
+    <!-- partial:partials/_navbar -->
+    
+    <%- include('navbar') %>
+    
+    
+    
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <% if(role=="Admin") { %>
+        <%- include('Admin_sidebar') %>
+        <% } else { %>
+          <%- include('sidebar') %>
+          <% } %>
+      <div class="main-panel">
+        <div class="content-wrapper">
+          <div class="row">
+
+            <div class="col-lg-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Products Table</h4>
+                  <p class="card-description">
+                    <% if(message.length > 0) { %>
+                      <%= message %>
+          <% } %>
+                  </p>
+                  <div class="table-responsive pt-3">
+                    <table class="table table-striped table-dark">
+                      <thead>
+                        <tr>
+                          <th>
+                            #Id
+                          </th>
+                          <th>
+                           Product name
+                          </th>
+                          <th>
+                            Product Category
+                          </th>
+                          
+                          <th>
+                            Cost Price
+                          </th>
+                          <th>
+                            Selling Price
+                          </th>
+                          <th>
+                           Current Quantity
+                          </th>
+                          <th>
+                           Minimum Quantity
+                          </th>
+                          <th>
+                            Supplier Id
+                          </th>
+                          <th>
+                            Date
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% product.forEach(function(cus){ %>
+                          <tr>
+                            <td><%= cus['ProductId'] %> </td>
+                            <td><%= cus['ProductName'] %> </td>
+                            <td><%= cus['productCategory'] %> </td>
+                            <td><%= cus['ProductCostPrice'] %> </td>
+                            <td><%= cus['ProductSellingPrice'] %> </td>
+                            <td><%= cus['CurrentQuantity'] %> </td>
+                            <td><%= cus['MinimumRequired'] %> </td>
+                             <td><%= cus['SupplierId'] %> </td>
+                             <td><%= cus['Date'] %> </td>
+                          
+                            
+                          </tr>
+                          
+                        <%  }); %>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+        <!-- content-wrapper ends -->
+        <!-- partial:partials/_footer -->
+       <%- include('footer') %>
+        <!-- partial -->
+      </div>
+      <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
+  <!-- plugins:js -->
+  <script src="vendors/base/vendor.bundle.base.js"></script>
+  <!-- endinject -->
+  <!-- Plugin js for this page-->
+  <!-- End plugin js for this page-->
+  <!-- inject:js -->
+  <script src="js/off-canvas.js"></script>
+  <script src="js/hoverable-collapse.js"></script>
+  <script src="js/template.js"></script>
+  <!-- endinject -->
+  <!-- Custom js for this page-->
+  <!-- End custom js for this page-->
+</body>
+
+<>

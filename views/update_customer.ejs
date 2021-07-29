@@ -1,0 +1,205 @@
+<%- include('header') %>
+    <!-- partial:partials/_navbar -->
+    
+    <%- include('navbar') %>
+    
+    
+    
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <!-- partial:partials/_sidebar -->
+      <% if(role=="Admin") { %>
+        <%- include('Admin_sidebar') %>
+        <% } else { %>
+          <%- include('sidebar') %>
+          <% } %>
+     
+      <!-- partial -->
+      <div class="main-panel">        
+        <div class="content-wrapper">
+          <div class="row">
+            <div class="col-md-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Update Customer Records</h4>
+                  <p class="card-description">
+                    <% if(message.length > 0) { %>
+                      <%= message %>
+          <% } %></h6>
+                  </p>
+                  <form class="forms" method="POST" >
+                    
+                    <div class="form-group row">
+                      <div class="col-md-6 row"> 
+                      <label for="customerId"  class="col-sm-3 col-form-label">Customer Id:</label>
+                      <div class="col-sm-9">
+                        <input  type="text" maxlength="10" name="customerId" class="form-control" id="customerId" placeholder="Customer Id" value=" <% if(customerDetails !== null) { %>
+                          <%= customerDetails.ClientId %>
+                          
+              <% } %>" >
+                      </div>
+                      </div>
+                      <div class="col-md-6 row"> 
+                        <div class="col-sm-12">
+                       <input  type="submit" formaction="update-customer" id="btnViewCustomer" class="col-sm-5  btn btn-sm btn-primary mr-2" value= "View Customer Details"> 
+                     </div>
+                     </div>
+                      <div class="col-md-6 row"> 
+                        <label for="date" class="col-sm-3 col-form-label">Date:</label>
+                        <div class="col-sm-9">
+                          <input  type="text" name="date" contenteditable="false" readonly  class="form-control" id="date" placeholder="Date of Registration" 
+                          value="<% if(customerDetails !== null) { %>
+                            <%= customerDetails.Date %>
+                <% } %>">
+                
+                        </div>
+                        </div>
+                        <div class="col-md-6 row"> 
+                          <label for="companyName" class="col-sm-3 col-form-label">Company</label>
+                          <div class="col-sm-9">
+                            <input  type="text"  name="companyName" class="form-control " id="companyName" placeholder="Name of Organization" 
+                             value="<% if(customerDetails !== null) { %>
+                                <%= customerDetails.ClientCompanyName %>
+                    <% } %>">
+                  
+                          </div>
+                          </div>
+                      <div class="col-md-6 row"> 
+                        <label for="companyEmail" class="col-sm-3 col-form-label">Email</label>
+                        <div class="col-sm-9">
+                          <input  type="email"  name="companyEmail" class="form-control" id="companyEmail" placeholder="Company's Email"
+                             value="<% if(customerDetails !== null) { %>
+                            <%= customerDetails.Email %>
+                            <% } %>">
+                         
+                        </div>
+                    </div>
+                    <div class="col-md-12 row"> 
+                      <p class=" card-description">
+                      Contact Person
+                    </p>
+                    
+                  </div>
+                    
+                  <div class="col-md-6 row"> 
+                    <label for="lastName" class="col-sm-3 col-form-label">Last Name</label>
+                    <div class="col-sm-9">
+                      <input  type="text" name="lastName" class="form-control" id="lastName" placeholder="Last Name"
+                        value=" <% if(customerDetails !== null) { %>
+                                                    <%= customerDetails.ClientLastName %>
+                                        <% } %>">
+                      
+                    </div>
+                    </div>
+                    <div class="col-md-6 row"> 
+                      <label for="firstName" class="col-sm-3 col-form-label">First Name</label>
+                      <div class="col-sm-9">
+                      <input  type="text" name="firstName" class="form-control" id="firstName" placeholder="First Name"
+                        value="<% if(customerDetails !== null) { %>
+                            <%= customerDetails.ClientFirstName %>
+                          <% } %>">
+                      
+                      </div>
+                      </div>
+                      <div class="col-md-6 row"> 
+                        <label for="otherName" class="col-sm-3 col-form-label">Other Name</label>
+                        <div class="col-sm-9">
+                          <input type="text" name ="otherName" class="form-control" id="otherName" placeholder="Other Name" value="
+                              <% if(customerDetails !== null) { %>
+                            <%= customerDetails.ClientOtherName %>
+                             <% } %>">
+                         
+                        </div>
+                        </div>
+                        <div class="col-md-6 row"> 
+                          
+                          </div>
+                          <div class="col-md-6 row"> 
+                            <label for="houseNo" class="col-sm-3 col-form-label">House No</label>
+                            <div class="col-sm-9">
+                              <input  type="text"  name="houseNo" class="form-control" id="houseNo" placeholder="House Number"
+                               value="<% if(customerDetails !== null) { %>
+                                  <%= customerDetails.HouseNo %>
+                      <% } %>">
+                            </div>
+                            </div>
+                            <div class="col-md-6 row"> 
+                              <label for="city" class="col-sm-3 col-form-label">City</label>
+                              <div class="col-sm-9">
+                              <input  type="text" name="city" class="form-control" id="city" placeholder="City of Residence" 
+                                 value="<% if(customerDetails !== null) { %>
+                                  <%= customerDetails.City %>
+                               <% } %>">
+                              
+                              </div>
+                              </div>
+                              <div class="col-md-6 form-group row"> 
+                                <label for="street" class="col-sm-3 col-form-label">Street</label>
+                                <div class="col-sm-9">
+                                  <input name="street" class="form-control" id="street" value="
+                                   <% if(customerDetails !== null) { %>
+                                      <%= customerDetails.Street %>
+                          <% } %>">
+                                  
+                                  
+                                </div>
+                                </div>
+                                <div class="col-md-6 row"> 
+                                  <label for="state"  class="col-sm-3 col-form-label">State</label>
+                                  <div class="col-sm-9">
+                                    <input  type="text" name="state" class="form-control" id="state" placeholder="State of Residence" value="
+                                      <% if(customerDetails !== null) { %>
+                                      <%= customerDetails.State %>
+                          <% } %>">
+                                    
+                                  </div>
+                                  </div>
+                                  <div class="col-md-6 row"> 
+                                    <label for="country" class="col-sm-3 col-form-label">Country</label>
+                                    <div class="col-sm-9">
+                                      <input  type="text" name="country" class="form-control" id="country" placeholder="Country of residence" 
+                                      value="<% if(customerDetails !== null) { %>
+                                        <%= customerDetails.Country %>
+                            <% } %>">
+                                      
+                                    </div>
+                                    </div>
+                    
+                 
+                    </div>
+                  
+                    <input type="submit" formaction="update_customer" class="btn btn-primary mr-2" value="Update">
+                    <button class="btn btn-google">Cancel</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+        <!-- content-wrapper ends -->
+        <!-- partial:partials/_footer -->
+        <%- include('footer.ejs') %>
+        <!-- partial -->
+      </div>
+      <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
+  <!-- plugins:js -->
+  <script src="vendors/base/vendor.bundle.base.js"></script>
+  <!-- endinject -->
+  <!-- Plugin js for this page-->
+  <!-- End plugin js for this page-->
+  <!-- inject:js -->
+  <script src="js/off-canvas.js"></script>
+  <script src="js/hoverable-collapse.js"></script>
+  <script src="js/template.js"></script>
+  <script src="js/customer.js"></script>
+  <!-- endinject -->
+  <!-- Custom js for this page-->
+  <!-- End custom js for this page-->
+</body>
+
+</html>

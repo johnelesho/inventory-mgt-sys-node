@@ -1,0 +1,174 @@
+<%- include('header') %>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script defer src="js/invoice-js.js"></script>
+<link rel="stylesheet" href="css/invoice-style.css">
+<!------ Include the above in your HEAD tag ---------->
+
+<!--Author      : @arboshiki-->
+<div id="invoice">
+
+    <div class="toolbar hidden-print">
+        <div class="text-right">
+            <button id="printInvoice" class="btn btn-info"><i class="fa fa-print"></i> Print</button>
+            <a href="index"> <button  class="btn btn-info"><i class="fa fa-file-pdf-o"></i> Back</button> </a>
+        </div>
+        <hr>
+    </div>
+    <div class="invoice overflow-auto">
+        <div style="min-width: 600px">
+            <header>
+                <div class="row">
+                    <div class="col">
+                        <a target="_blank" href="#">
+                            <img src="images/logo.png" data-holder-rendered="true" />
+                            </a>
+                    </div>
+                    <div class="col company-details">
+                        <h2 class="name">
+                            <a target="_blank" href="#">
+                          Buino Technology Limited 
+                            </a> 
+                           
+                            
+                        </h2>
+                        <div> 2273 JA Voorburg, Koningin Julianalaan 41, The Netherlands.</div>
+                        <div>+31 (0) 6 536 144 88</div>
+                        <div>info@buinotech.com</div>
+                        <p>
+                        <div> 17 Bale Street, Imale talafia, Ibeju-lekki, Lagos, Nigeria</div>
+                        <div> +234 (0) 80 7474 5209,      +234 (0) 81 2513 8984</div>
+                        <div>info@buinotech.com</div>
+                        </p>
+                    </div>
+                </div>
+            </header>
+            <main>
+                <div class="row contacts">
+                    <div class="col invoice-to">
+                        <div class="text-gray-light">INVOICE TO:</div>
+                        
+                        <h2 class="to"> <% if(purchase !== null) { %>
+                          <%= purchase.SupplierLastName %>,  <%= purchase.SupplierFirsttName %>  <%= purchase.SupplierOtherName %>
+              <% } %></h2>
+              <div class="to"> <% if(purchase !== null) { %>
+                <%= purchase.SupplierCompanyName %>   <% } %></div>
+                        <div class="address"> <% if(purchase !== null) { %>
+                          <%= purchase.HouseNo %>,  <%= purchase.Street %>  <%= purchase.City %>, <%= purchase.State %>, <%= purchase.Country %> 
+              <% } %></div>
+                        <div class="email"><a href="<% if(purchase !== null) { %>
+                          <%= purchase.SupplierCompanyEmail %>        <% } %>"><% if(purchase !== null) { %>
+                          <%= purchase.SupplierCompanyEmail %>        <% } %></a></div>
+                    </div>
+                    <div class="col invoice-details">
+                        <h1 class="invoice-id"><% if(purchase !== null) { %>
+                          <%= purchase.InvoiceNo %>        <% } %></h1>
+                        <div class="date">Date of Invoice: <% if(purchase !== null) { %>
+                          <%= purchase.PurchaseDate %>        <% } %></div>
+                        <div class="date">Due Date: <% if(purchase !== null) { %>
+                          <%= purchase.PurchaseDate %>        <% } %></div>
+                    </div>
+                </div>
+                <table border="0" cellspacing="0" cellpadding="0">
+                  <% 
+                  var formatter = new Intl.NumberFormat(undefined, {
+                    style: 'currency',
+                    currency: 'NGN',
+                  });
+                  
+                  
+                  %>
+                    <thead>
+                        <tr>
+                         
+                            <th>#</th>
+                            <th class="text-left">Prod Id</th>
+                            <th class="text-left">DESCRIPTION</th>
+                            <th class="text-right">Unit Cost</th>
+                            <th class="text-right">Qty</th>
+                            <th class="text-right">Total Cost</th>
+                            <th class="text-right">% VAT</th>
+                            <th class="text-right">Total VAT</th>
+                            <th class="text-right">% Discount</th>
+                            <th class="text-right">Total Discount</th>
+                          
+                        </tr>
+                    </thead>
+                    <tbody>
+                       <% if(purchase !== null) { %>
+                             <% items = purchase.PurchaseItemsDetails.split(';')  %>
+                              <% for(i =0; i < items.length-1; i++){%> 
+                                
+                                 <% itemize = items[i].split(','); %>
+                                <tr>
+                                  <td class="unit sn"> <%= i+1 %></td>
+
+                                  <td class="qty id"> <%= itemize[0] %></td>
+                                  <td class="unit desc"><%= itemize[1] %></td>
+                                  <td class="qty cost"> <%= formatter.format(itemize[2]) %></td>
+                                  <td class="unit qty"> <%= itemize[5] %></td>
+                                  <td class="total tcost"> <%= formatter.format(itemize[6]) %></td>
+                                  <td class="qty vat" > <%= itemize[3] %></td>
+                                  <td class="total tVat"> <%= formatter.format(itemize[8]) %></td>
+                                  <td class="unit dis"><%= itemize[4] %></td>                               
+                                  <td class="total tdisc"><%= formatter.format(itemize[7]) %></td>
+                                 
+                                  
+                                </tr>
+                     
+                                 
+                              
+                              <% } }%> 
+                          
+                       
+                        
+                      </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="4"></td>
+                            <td colspan="5">Total Amount Excl. VAT</td>
+                            <td><% if(purchase !== null) { %>
+                              <%= formatter.format(purchase.PurchaseAmount) %>        <% } %></td>
+                        </tr>
+                        <tr>
+                          <td colspan="4"></td>
+                          <td colspan="5">Total VAT</td>
+                          <td><% if(purchase !== null) { %>
+                            <%= formatter.format(purchase.TotalVAT) %>        <% } %></td>
+                      </tr>
+                      <tr>
+                        <td colspan="4"></td>
+                        <td colspan="5">Total Amount Incl. VAT</td>
+                        <td><% if(purchase !== null) { %>
+                          <%= formatter.format(parseInt(purchase.PurchaseAmount) + parseInt(purchase.TotalVAT)) %>        <% } %></td>
+                    </tr>
+                    <tr>
+                      <td colspan="4"></td>
+                      <td colspan="5">Total Discount</td>
+                      <td><% if(purchase !== null) { %>
+                        <%= formatter.format(purchase.PurchaseDiscount) %>        <% } %></td>
+                  </tr>
+                    
+                        <tr>
+                            <td colspan="4"></td>
+                            <td colspan="5">Total Amount Due</td>
+                            <td><% if(purchase !== null) { %>
+                              <%= formatter.format(parseInt(purchase.PurchaseAmount) + parseInt(purchase.TotalVAT) - parseInt(purchase.PurchaseDiscount)) %>        <% } %></td>
+                        </tr>
+                    </tfoot>
+                </table>
+                <div class="thanks">Thank you  for patronizing us!</div>
+                <div class="notices">
+                    <div>NOTICE:</div>
+                    <div class="notice">A finance charge of 1.5% will be made on unpaid balances after 30 days.</div>
+                </div>
+            </main>
+            <footer>
+                Invoice was created on a computer and is valid without the signature and seal.
+            </footer>
+        </div>
+        <!--DO NOT DELETE THIS div. IT is responsible for showing footer always at the bottom-->
+        <div></div>
+    </div>
+</div>

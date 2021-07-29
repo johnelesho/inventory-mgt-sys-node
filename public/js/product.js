@@ -1,0 +1,19 @@
+let date = document.getElementById('date'),
+productName = document.getElementById('productName'),
+supplierId= document.getElementById('supplierId'),
+costPrice= document.getElementById('costPrice'),
+sellingPrice = document.getElementById('sellingPrice'),
+initialQty = document.getElementById('initialQty')
+minimumQty = document.getElementById('minimumQty'),
+productCategory = document.getElementById('productCategory'),
+productId = document.getElementById('productId');
+
+date.value = date.value.trim();
+productName.value = productName.value.trim();
+supplierId.value =supplierId.value.trim();
+sellingPrice.value =sellingPrice.value.trim();
+costPrice.value =costPrice.value.trim();
+initialQty.value =initialQty.value.trim();
+minimumQty.value =minimumQty.value.trim();
+productCategory.value =productCategory.value.trim();
+productId.value =productId.value.trim();
